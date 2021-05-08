@@ -8,31 +8,34 @@ import { PartyContextWrapper } from './context/party/PartyProvider';
 import Party from './components/Party';
 import { LoginContextWrapper } from './context/login/LoginProvider';
 import Register from './components/Register';
+import { RegisterContextWrapper } from './context/register/RegisterProvider';
 
 function App() {
   return (
     <div className="App">
       <AppWrapper>
-        <LoginContextWrapper>
-          <PartyContextWrapper>
-            <BrowserRouter>
-              <Switch>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route path="/register">
-                  <Register />
-                </Route>
-                <Route path="/" exact>
-                  <Home />
-                </Route>
-                <Route path="/parties" exact>
-                  <Party />
-                </Route>
-              </Switch>
-            </BrowserRouter>
-          </PartyContextWrapper>
-        </LoginContextWrapper>
+        <RegisterContextWrapper>
+          <LoginContextWrapper>
+            <PartyContextWrapper>
+              <BrowserRouter>
+                <Switch>
+                  <Route path="/login">
+                    <Login />
+                  </Route>
+                  <Route path="/register">
+                    <Register />
+                  </Route>
+                  <Route path="/" exact>
+                    <Home />
+                  </Route>
+                  <Route path="/parties" exact>
+                    <Party />
+                  </Route>
+                </Switch>
+              </BrowserRouter>
+            </PartyContextWrapper>
+          </LoginContextWrapper>
+        </RegisterContextWrapper>
       </AppWrapper>
     </div>
   );

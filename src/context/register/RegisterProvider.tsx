@@ -7,7 +7,6 @@ import { SET_REGISTER } from './action-types';
 export interface IRegisterPayload {
   email: string;
   password: string;
-  confirmPassword: string;
 }
 export interface IRegisterResp {
   access_token: string;
@@ -25,7 +24,7 @@ export function RegisterContextWrapper({ children }: { children: any }) {
 
   const register = async (payload: IRegisterPayload): Promise<void> => {
     const { data }: { data: IRegisterResp } = await axios.post(
-      '/auth/register',
+      '/auth/signup',
       payload,
     );
 
