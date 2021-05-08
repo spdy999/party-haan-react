@@ -7,6 +7,7 @@ import { AppWrapper } from './context/state';
 import { PartyContextWrapper } from './context/party/PartyProvider';
 import Party from './components/Party';
 import { LoginContextWrapper } from './context/login/LoginProvider';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
               <Switch>
                 <Route path="/login">
                   <Login />
+                </Route>
+                <Route path="/register">
+                  <Register />
                 </Route>
                 <Route path="/" exact>
                   <Home />
