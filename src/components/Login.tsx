@@ -6,11 +6,6 @@ import { useLoginContext } from '../context/login/LoginProvider';
 import { RouteComponentProps } from 'react-router';
 import * as yup from 'yup';
 
-interface Values {
-  email: string;
-  password: string;
-}
-
 const validationSchema = yup.object({
   email: yup
     .string()

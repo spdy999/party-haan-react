@@ -1,13 +1,14 @@
 import { usePartyContext } from '../context/party/PartyProvider';
 import PartyCard from './party/PartyCard';
+import { IParty } from '../context/party/state';
 export default function Party() {
   const { partyMessage, parties } = usePartyContext();
 
   return (
     <div>
-      <h1>{partyMessage}</h1>
-      <h1>{JSON.stringify(parties)}</h1>
-      <PartyCard imgUrl={parties[0].imgUrl} />
+      {parties.map((party: IParty) => (
+        <PartyCard key={party.id} imgUrl={party.imgUrl} />
+      ))}
     </div>
   );
 }
