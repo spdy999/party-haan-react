@@ -3,8 +3,6 @@ import Layout from './layout';
 import LoginForm from './LoginForm';
 import { useAppContext } from '../context/state';
 import { useLoginContext } from '../context/login/LoginProvider';
-import axios from 'axios';
-import { LoginRespBody } from '../context/login/reducer';
 
 interface Values {
   email: string;
@@ -13,11 +11,11 @@ interface Values {
 
 export default function Login() {
   const { message } = useAppContext();
-  const { loginMessage } = useLoginContext();
+  const { login } = useLoginContext();
+
   return (
     <Layout>
       <div>{message}</div>
-      <div>{loginMessage}</div>
       <div style={{ margin: '0 0 40px 0' }}>
         <img
           src="/images/logo.png"
@@ -46,13 +44,7 @@ export default function Login() {
         }}
         onSubmit={async (values) => {
           try {
-            const resp: LoginRespBody = await axios.post(
-              'http://localhost:4000/auth/login',
-              values,
-            );
-            // On();
-
-            console.log('successful login: ', resp.body);
+            await login(values);
           } catch (error) {
             console.log(error);
           }

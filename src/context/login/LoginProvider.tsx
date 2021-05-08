@@ -1,38 +1,31 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useReducer,
-} from 'react';
-import loginInitialState from './state';
+import { createContext, useContext, useReducer } from 'react';
+import loginInitialState, { LoginStateI } from './state';
 import loginReducer from './reducer';
-// import { LoginStateI } from './state';
-// import { LoginRespBody } from './reducer';
-// import axios from 'axios';
-import { LOGIN } from './action';
+import axios from 'axios';
+import { SET_LOGIN } from './action-types';
+import { ILoginPayload, ILoginResp } from './action';
 
-const LoginContext = createContext(loginInitialState);
+interface IContextProps {
+  state: LoginStateI;
+  login: (payload: ILoginPayload) => Promise<void>;
+}
+
+const LoginContext = createContext({} as IContextProps);
 
 export function LoginContextWrapper({ children }: { children: any }) {
-  const [loginMessage, setLoginMessage] = useState<string>(
-    loginInitialState.loginMessage,
-  );
-  const [loggedIn] = useState<boolean>(loginInitialState.loggedIn);
-  const [, dispatch] = useReducer(loginReducer, loginInitialState);
+  const [state, dispatch] = useReducer(loginReducer, loginInitialState);
 
-  useEffect(() => {
-    setLoginMessage('Hello from use effect');
-  }, []);
+  const login = async (payload: ILoginPayload): Promise<void> => {
+    const { data }: { data: ILoginResp } = await axios.post(
+      '/auth/login',
+      payload,
+    );
+
+    dispatch({ type: SET_LOGIN, payload: data });
+  };
 
   return (
-    <LoginContext.Provider
-      value={{
-        loginMessage,
-        loggedIn,
-        On: () => dispatch({ type: LOGIN, payload: {} }),
-      }}
-    >
+    <LoginContext.Provider value={{ state, login }}>
       {children}
     </LoginContext.Provider>
   );

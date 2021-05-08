@@ -11,10 +11,7 @@ export function PartyContextWrapper({ children }: { children: any }) {
   const [state, dispatch] = useReducer(partyReducer, partyInitialState);
 
   const getParties = async (): Promise<void> => {
-    await axios.get('http://localhost:4000/parties');
-    const { data }: { data: IParty[] } = await axios.get(
-      'http://localhost:4000/parties',
-    );
+    const { data }: { data: IParty[] } = await axios.get('/parties');
     dispatch({ type: SET_PARTIES, payload: data });
   };
   useEffect(() => {

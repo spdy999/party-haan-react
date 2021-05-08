@@ -1,8 +1,8 @@
-import { LOGIN } from './action';
+import { SET_LOGIN } from './action-types';
 import { LoginStateI } from './state';
 
 export interface Action {
-  type: 'LOGIN';
+  type: 'SET_LOGIN';
   payload: any;
 }
 
@@ -14,8 +14,7 @@ export interface LoginRespBody {
 
 const loginReducer = (state: LoginStateI, action: Action): LoginStateI => {
   switch (action.type) {
-    case LOGIN:
-      console.log('Login reducer');
+    case SET_LOGIN:
       return {
         ...state,
         loggedIn: true,
