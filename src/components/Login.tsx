@@ -4,8 +4,22 @@ import LoginForm from './LoginForm';
 import { useAppContext } from '../context/state';
 import { useLoginContext } from '../context/login/LoginProvider';
 import { RouteComponentProps } from 'react-router';
+import * as yup from 'yup';
 
 interface Values {
+  email: string;
+  password: string;
+}
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
+
+interface MyFormValues {
   email: string;
   password: string;
 }
@@ -13,7 +27,10 @@ interface Values {
 const Login = (props: RouteComponentProps<any>) => {
   const { message } = useAppContext();
   const { login } = useLoginContext();
-
+  const initialValues: MyFormValues = {
+    email: '',
+    password: '',
+  };
   return (
     <Layout>
       <div>{message}</div>
@@ -28,27 +45,14 @@ const Login = (props: RouteComponentProps<any>) => {
       </div>
 
       <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validate={(values) => {
-          const errors: Partial<Values> = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={async (values) => {
           try {
             await login(values);
             props.history.push('/');
           } catch (error) {
-            console.log(error);
+            alert('Wrong email or password');
           }
         }}
       >
