@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Typography from '@material-ui/core/Typography';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import axios from 'axios';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
+import { AppWrapper } from './context/state';
+import { PartyContextWrapper } from './context/party/PartyProvider';
+import Party from './components/Party';
 
 export interface IParty {
   capacity: number;
@@ -25,27 +25,26 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <BrowserRouter>
-        {/* <nav>
-          <div>
-            <Link to="/">Home</Link>
-          </div>
-          <div>
-            <Link to="/user/:id">User</Link>
-          </div>
-        </nav> */}
-        <Switch>
-          {/* <Route path="/user/:id">
-            <User />
-          </Route> */}
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <AppWrapper>
+        {/* <LoginContextWrapper> */}
+        <PartyContextWrapper>
+          {/* <Component {...pageProps} /> */}
+          <BrowserRouter>
+            <Switch>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/parties" exact>
+                <Party />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </PartyContextWrapper>
+        {/* </LoginContextWrapper> */}
+      </AppWrapper>
     </div>
   );
 }
