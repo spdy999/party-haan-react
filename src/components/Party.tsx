@@ -1,4 +1,5 @@
 import { usePartyContext } from '../context/party/PartyProvider';
+import PartyCard from './party/PartyCard';
 export default function Party() {
   const { partyMessage, parties } = usePartyContext();
 
@@ -6,6 +7,7 @@ export default function Party() {
     <div>
       <h1>{partyMessage}</h1>
       <h1>{JSON.stringify(parties)}</h1>
+      <PartyCard />
     </div>
   );
 }
