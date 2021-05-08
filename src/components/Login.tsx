@@ -1,5 +1,4 @@
 import { Formik } from 'formik';
-// import Image from 'next/image';
 import Layout from './layout';
 import LoginForm from './LoginForm';
 import { useAppContext } from '../context/state';
@@ -19,14 +18,16 @@ export default function Login() {
     <Layout>
       <div>{message}</div>
       <div>{loginMessage}</div>
-      {/* <div style={{ margin: '0 0 40px 0' }}>
-        <Image
+      <div style={{ margin: '0 0 40px 0' }}>
+        <img
           src="/images/logo.png"
-          alt="Picture of the author"
+          className="App-logo"
+          alt="logo"
           width={90}
           height={90}
         />
-      </div> */}
+      </div>
+
       <Formik
         initialValues={{
           email: '',
