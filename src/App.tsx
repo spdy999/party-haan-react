@@ -4,7 +4,6 @@ import './App.css';
 import Typography from '@material-ui/core/Typography';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
-
 function App() {
   return (
     <div className="App">
