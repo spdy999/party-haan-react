@@ -3,13 +3,14 @@ import Layout from './layout';
 import LoginForm from './LoginForm';
 import { useAppContext } from '../context/state';
 import { useLoginContext } from '../context/login/LoginProvider';
+import { RouteComponentProps } from 'react-router';
 
 interface Values {
   email: string;
   password: string;
 }
 
-export default function Login() {
+const Login = (props: RouteComponentProps<any>) => {
   const { message } = useAppContext();
   const { login } = useLoginContext();
 
@@ -45,6 +46,7 @@ export default function Login() {
         onSubmit={async (values) => {
           try {
             await login(values);
+            props.history.push('/');
           } catch (error) {
             console.log(error);
           }
@@ -56,4 +58,6 @@ export default function Login() {
       </Formik>
     </Layout>
   );
-}
+};
+
+export default Login;

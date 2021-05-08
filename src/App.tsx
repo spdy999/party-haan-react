@@ -19,9 +19,10 @@ const App = () => {
             <PartyContextWrapper>
               <BrowserRouter>
                 <Switch>
-                  <Route path="/login">
-                    <Login />
-                  </Route>
+                  <Route
+                    path="/login"
+                    render={(props) => <Login {...props} />}
+                  />
                   <Route
                     path="/register"
                     render={(props) => <Register {...props} />}
