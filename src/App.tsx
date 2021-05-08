@@ -10,7 +10,7 @@ import { LoginContextWrapper } from './context/login/LoginProvider';
 import Register from './components/Register';
 import { RegisterContextWrapper } from './context/register/RegisterProvider';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <AppWrapper>
@@ -22,9 +22,10 @@ function App() {
                   <Route path="/login">
                     <Login />
                   </Route>
-                  <Route path="/register">
-                    <Register />
-                  </Route>
+                  <Route
+                    path="/register"
+                    render={(props) => <Register {...props} />}
+                  />
                   <Route path="/" exact>
                     <Home />
                   </Route>
@@ -39,6 +40,6 @@ function App() {
       </AppWrapper>
     </div>
   );
-}
+};
 
 export default App;

@@ -4,6 +4,7 @@ import RegisterForm from './RegisterForm';
 import { useRegisterContext } from '../context/register/RegisterProvider';
 import { Typography } from '@material-ui/core';
 import * as yup from 'yup';
+import { RouteComponentProps } from 'react-router';
 
 interface MyFormValues {
   email: string;
@@ -35,7 +36,7 @@ const validationSchema = yup.object({
   accept: yup.boolean().oneOf([true], 'Accept is required'),
 });
 
-const Register = () => {
+const Register = (props: RouteComponentProps<any>) => {
   const { register } = useRegisterContext();
   const initialValues: MyFormValues = {
     email: '',
@@ -52,6 +53,7 @@ const Register = () => {
         onSubmit={async (values) => {
           try {
             await register(values);
+            props.history.push('/');
           } catch (error) {
             console.log(error);
           }
