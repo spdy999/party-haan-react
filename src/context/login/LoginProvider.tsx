@@ -3,7 +3,17 @@ import loginInitialState, { LoginStateI } from './state';
 import loginReducer from './reducer';
 import axios from 'axios';
 import { SET_LOGIN } from './action-types';
-import { ILoginPayload, ILoginResp } from './action';
+
+export interface ILoginPayload {
+  email: string;
+  password: string;
+}
+export interface ILoginResp {
+  access_token: string;
+}
+export interface IDispatch {
+  dispatch: () => void;
+}
 
 interface IContextProps {
   state: LoginStateI;
