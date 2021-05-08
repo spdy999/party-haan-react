@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import '@fontsource/roboto';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}`;
+
 axios.interceptors.request.use(
   (request) => {
     console.log(request);
