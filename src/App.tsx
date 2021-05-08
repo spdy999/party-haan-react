@@ -1,7 +1,6 @@
 import React from 'react';
 // import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './components/Home';
 import Login from './components/Login';
 import { AppWrapper } from './context/state';
 import { PartyContextWrapper } from './context/party/PartyProvider';
@@ -28,7 +27,7 @@ const App = () => {
                     render={(props) => <Register {...props} />}
                   />
                   <Route path="/" exact>
-                    <Home />
+                    <Party />
                   </Route>
                   <Route path="/parties" exact>
                     <Party />
