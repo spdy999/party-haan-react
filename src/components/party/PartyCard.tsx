@@ -16,8 +16,10 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
-
-const PartyCard = () => {
+interface IPartyCardProps {
+  imgUrl: string;
+}
+const PartyCard = (props: IPartyCardProps) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +27,7 @@ const PartyCard = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={props.imgUrl}
           title="Contemplative Reptile"
         />
         <CardContent>

@@ -7,7 +7,7 @@ export default function Party() {
     <div>
       <h1>{partyMessage}</h1>
       <h1>{JSON.stringify(parties)}</h1>
-      <PartyCard />
+      <PartyCard imgUrl={parties[0].imgUrl} />
     </div>
   );
 }
