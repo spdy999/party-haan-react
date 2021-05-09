@@ -1,8 +1,15 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Avatar,
+} from '@material-ui/core';
 import { useAppContext } from '../context/AppProvider';
 import { ArrowBackIos } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,11 +30,20 @@ const CustomAppBar = () => {
   const { state } = useAppContext();
   const { appBarTitle, lastPage } = state;
   const history = useHistory();
+  const location = useLocation();
+  const currentPathName = location.pathname;
+  const isLoginPage = currentPathName === '/login';
+  const logout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userId');
+    history.push('/login');
+  };
 
+  const access_token = localStorage.getItem('access_token');
   return (
     <AppBar position="static">
       <Toolbar>
-        {lastPage !== '' && (
+        {!isLoginPage && (
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -35,13 +51,23 @@ const CustomAppBar = () => {
             aria-label="menu"
             onClick={() => history.push(lastPage)}
           >
-            <ArrowBackIos />
+            {lastPage !== '' && <ArrowBackIos />}
+            {currentPathName === '/' && <Avatar src="/images/logo.png" />}
           </IconButton>
         )}
         <Typography variant="h6" className={classes.title}>
           {appBarTitle}
         </Typography>
-        {/* <Button color="inherit">Login</Button> */}
+        {access_token && !isLoginPage && (
+          <Button color="inherit" onClick={logout}>
+            LOGOUT
+          </Button>
+        )}
+        {!access_token && !isLoginPage && (
+          <Button color="inherit" onClick={() => history.push('/login')}>
+            LOGIN
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
