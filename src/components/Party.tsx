@@ -5,9 +5,19 @@ import Typography from '@material-ui/core/Typography';
 import { Box, Container, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { RouteComponentProps } from 'react-router';
+import { useAppContext } from '../context/AppProvider';
+import { useEffect } from 'react';
+import { SET_APP_BAR_NAME } from '../context/action-types';
 
 export default function Party(props: RouteComponentProps<any>) {
-  const { state } = usePartyContext();
+  const { state: appState, dispatch: appDispatch } = useAppContext();
+  const { state: partyState } = usePartyContext();
+  useEffect(() => {
+    appDispatch({
+      type: SET_APP_BAR_NAME,
+      payload: { appBarTitle: 'ปาร์ตี้ทั้งหมด' },
+    });
+  }, [appDispatch]);
 
   return (
     <Container>
@@ -26,7 +36,7 @@ export default function Party(props: RouteComponentProps<any>) {
           <Add />
         </IconButton>
       </Box>
-      {state.parties.map((party: IParty) => (
+      {partyState.parties.map((party: IParty) => (
         <PartyCard key={party.id} party={party} />
       ))}
     </Container>

@@ -1,9 +1,9 @@
 import { SET_APP_BAR_NAME } from './action-types';
 import { IAppState } from './state';
 
-export interface Action {
+export interface IAppAction {
   type: 'SET_APP_BAR_NAME';
-  payload: any;
+  payload: IAppState;
 }
 
 export interface RegisterRespBody {
@@ -12,12 +12,12 @@ export interface RegisterRespBody {
   };
 }
 
-const appReducer = (state: IAppState, action: Action): IAppState => {
+const appReducer = (state: IAppState, action: IAppAction): IAppState => {
   switch (action.type) {
     case SET_APP_BAR_NAME:
       return {
         ...state,
-        loggedIn: true,
+        appBarTitle: action.payload.appBarTitle,
       };
     default:
       return state;
