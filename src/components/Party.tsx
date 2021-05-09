@@ -4,7 +4,9 @@ import { IParty } from '../context/party/state';
 import Typography from '@material-ui/core/Typography';
 import { Box, Container, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-export default function Party() {
+import { RouteComponentProps } from 'react-router';
+
+export default function Party(props: RouteComponentProps<any>) {
   const { state } = usePartyContext();
 
   return (
@@ -18,7 +20,7 @@ export default function Party() {
         <Typography variant="h6">ปาร์ตี้ทั้งหมด</Typography>
         <IconButton
           onClick={() => {
-            alert('click!');
+            props.history.push('/parties/create');
           }}
         >
           <Add />

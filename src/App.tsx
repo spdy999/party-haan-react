@@ -8,6 +8,7 @@ import Party from './components/Party';
 import { LoginContextWrapper } from './context/login/LoginProvider';
 import Register from './components/Register';
 import { RegisterContextWrapper } from './context/register/RegisterProvider';
+import CreateParty from './components/party/CreateParty';
 
 const App = () => {
   return (
@@ -19,6 +20,15 @@ const App = () => {
               <BrowserRouter>
                 <Switch>
                   <Route
+                    path="/"
+                    exact
+                    render={(props) => <Party {...props} />}
+                  />
+                  <Route
+                    path="/parties/create"
+                    render={(props) => <CreateParty {...props} />}
+                  />
+                  <Route
                     path="/login"
                     render={(props) => <Login {...props} />}
                   />
@@ -26,12 +36,6 @@ const App = () => {
                     path="/register"
                     render={(props) => <Register {...props} />}
                   />
-                  <Route path="/" exact>
-                    <Party />
-                  </Route>
-                  <Route path="/parties" exact>
-                    <Party />
-                  </Route>
                 </Switch>
               </BrowserRouter>
             </PartyContextWrapper>
