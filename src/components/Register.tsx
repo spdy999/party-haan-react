@@ -32,7 +32,9 @@ const validationSchema = yup.object({
     .email('Enter a valid email')
     .required('Email is required'),
   password: yup.string().required('Password is required'),
-  confirmPassword: yup.string().required('Confirm password is required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
   accept: yup.boolean().oneOf([true], 'Accept is required'),
 });
 

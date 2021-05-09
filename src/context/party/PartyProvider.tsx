@@ -31,15 +31,15 @@ export function PartyContextWrapper({ children }: { children: any }) {
     dispatch({ type: SET_PARTIES, payload: data });
   };
 
-  const accessToken = localStorage.getItem('access_token') || '';
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-
   const joinParty = async (payload: IJoinPartyPayload): Promise<void> => {
+    const accessToken = localStorage.getItem('access_token') || '';
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
     try {
       await axios.post('/parties/join', payload, config);
       await getParties();
