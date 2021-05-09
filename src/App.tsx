@@ -8,7 +8,7 @@ import Party from './components/Party';
 import { LoginContextWrapper } from './context/login/LoginProvider';
 import Register from './components/Register';
 import { RegisterContextWrapper } from './context/register/RegisterProvider';
-import CreateParty from './components/party/CreateParty';
+import CreateParty from './components/party/create/CreateParty';
 import CustomAppBar from './components/CustomAppBar';
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
                   />
                   <Route
                     path="/parties/create"
-                    render={() => <CreateParty />}
+                    render={(props) => <CreateParty {...props} />}
                   />
                   <Route
                     path="/login"

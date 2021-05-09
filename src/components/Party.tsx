@@ -24,10 +24,9 @@ export default function Party(props: RouteComponentProps<any>) {
       <Box
         display="flex"
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h6">ปาร์ตี้ทั้งหมด</Typography>
         <IconButton
           onClick={() => {
             props.history.push('/parties/create');
