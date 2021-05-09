@@ -29,6 +29,7 @@ export default function LoginForm({ isSubmitting, submitForm }: Props) {
           เข้าสู่ระบบ
         </Button>
         <br />
+        <br />
         <Link href="/register">
           <Button variant="contained" color="primary">
             สร้างบัญชีผู้ใช้

@@ -2,7 +2,6 @@ import { createContext, useContext, useReducer } from 'react';
 import registerInitialState, { RegisterStateI } from './state';
 import registerReducer from './reducer';
 import axios from 'axios';
-import { SET_REGISTER } from './action-types';
 
 export interface IRegisterPayload {
   email: string;
@@ -10,6 +9,7 @@ export interface IRegisterPayload {
 }
 export interface IRegisterResp {
   access_token: string;
+  userId: number;
 }
 
 interface IContextProps {
@@ -20,15 +20,15 @@ interface IContextProps {
 const RegisterContext = createContext({} as IContextProps);
 
 export function RegisterContextWrapper({ children }: { children: any }) {
-  const [state, dispatch] = useReducer(registerReducer, registerInitialState);
+  const [state] = useReducer(registerReducer, registerInitialState);
 
   const register = async (payload: IRegisterPayload): Promise<void> => {
     const { data }: { data: IRegisterResp } = await axios.post(
       '/auth/signup',
       payload,
     );
-
-    dispatch({ type: SET_REGISTER, payload: data });
+    localStorage.setItem('access_token', data.access_token);
+    localStorage.setItem('userId', data.userId.toString());
   };
 
   return (

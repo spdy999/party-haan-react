@@ -55,7 +55,7 @@ const Register = (props: RouteComponentProps<any>) => {
             await register(values);
             props.history.push('/');
           } catch (error) {
-            console.log(error);
+            alert(error);
           }
         }}
       >

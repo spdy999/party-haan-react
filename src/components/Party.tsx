@@ -1,7 +1,6 @@
 import { usePartyContext } from '../context/party/PartyProvider';
 import PartyCard from './party/PartyCard';
 import { IParty, IPartyUser } from '../context/party/state';
-import Typography from '@material-ui/core/Typography';
 import { Box, Container, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { RouteComponentProps } from 'react-router';

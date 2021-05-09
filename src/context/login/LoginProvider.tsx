@@ -2,7 +2,6 @@ import { createContext, useContext, useReducer } from 'react';
 import loginInitialState, { LoginStateI } from './state';
 import loginReducer from './reducer';
 import axios from 'axios';
-import { SET_LOGIN } from './action-types';
 
 export interface ILoginPayload {
   email: string;
@@ -24,7 +23,7 @@ interface IContextProps {
 const LoginContext = createContext({} as IContextProps);
 
 export function LoginContextWrapper({ children }: { children: any }) {
-  const [state, dispatch] = useReducer(loginReducer, loginInitialState);
+  const [state] = useReducer(loginReducer, loginInitialState);
 
   const login = async (payload: ILoginPayload): Promise<void> => {
     const { data }: { data: ILoginResp } = await axios.post(
@@ -33,7 +32,6 @@ export function LoginContextWrapper({ children }: { children: any }) {
     );
     localStorage.setItem('access_token', data.access_token);
     localStorage.setItem('userId', data.userId.toString());
-    dispatch({ type: SET_LOGIN, payload: data });
   };
 
   return (
