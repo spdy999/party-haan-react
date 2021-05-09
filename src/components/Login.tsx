@@ -1,7 +1,6 @@
 import { Formik } from 'formik';
 import Layout from './layout';
 import LoginForm from './LoginForm';
-import { useAppContext } from '../context/state';
 import { useLoginContext } from '../context/login/LoginProvider';
 import { RouteComponentProps } from 'react-router';
 import * as yup from 'yup';
@@ -20,7 +19,6 @@ interface MyFormValues {
 }
 
 const Login = (props: RouteComponentProps<any>) => {
-  const { message } = useAppContext();
   const { login } = useLoginContext();
   const initialValues: MyFormValues = {
     email: '',
@@ -28,7 +26,6 @@ const Login = (props: RouteComponentProps<any>) => {
   };
   return (
     <Layout>
-      <div>{message}</div>
       <div style={{ margin: '0 0 40px 0' }}>
         <img
           src="/images/logo.png"
