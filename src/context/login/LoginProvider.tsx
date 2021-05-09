@@ -10,6 +10,7 @@ export interface ILoginPayload {
 }
 export interface ILoginResp {
   access_token: string;
+  userId: number;
 }
 export interface IDispatch {
   dispatch: () => void;
@@ -31,6 +32,7 @@ export function LoginContextWrapper({ children }: { children: any }) {
       payload,
     );
     localStorage.setItem('access_token', data.access_token);
+    localStorage.setItem('userId', data.userId.toString());
     dispatch({ type: SET_LOGIN, payload: data });
   };
 

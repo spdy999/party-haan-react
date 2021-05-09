@@ -1,5 +1,7 @@
 export interface IPartyUser {
   id: number;
+  partyId: number;
+  userId: number;
 }
 export interface IParty {
   capacity: number;

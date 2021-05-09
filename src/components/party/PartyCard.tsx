@@ -26,12 +26,13 @@ const useStyles = makeStyles({
 interface IPartyCardProps {
   key: any;
   party: IParty;
+  userJoined: boolean;
 }
 
 const PartyCard = (props: IPartyCardProps) => {
   const { joinParty } = usePartyContext();
   const classes = useStyles();
-  const { party } = props;
+  const { party, userJoined } = props;
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -53,7 +54,7 @@ const PartyCard = (props: IPartyCardProps) => {
         <Button
           size="small"
           color="primary"
-          disabled={party.partiesUsers.length >= party.capacity}
+          disabled={party.partiesUsers.length >= party.capacity || userJoined}
           onClick={async () => {
             await joinParty({ partyId: party.id });
           }}
