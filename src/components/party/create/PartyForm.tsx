@@ -1,51 +1,32 @@
 import { Form, Field } from 'formik';
-import { Button, FormHelperText, LinearProgress } from '@material-ui/core';
-import { TextField, CheckboxWithLabel } from 'formik-material-ui';
-import { IRegisterFormProps } from './CreateParty';
+import { Button } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
+import { IPartyFormProps } from './CreateParty';
 
-export default function PartyForm({
-  isSubmitting,
-  submitForm,
-  errors,
-}: IRegisterFormProps) {
+export default function PartyForm({ submitForm }: IPartyFormProps) {
   return (
     <Form>
-      <Field component={TextField} name="email" type="email" label="อีเมล" />
-      <br />
       <Field
         component={TextField}
-        type="password"
-        label="รหัสผ่าน"
-        name="password"
+        name="name"
+        type="text"
+        label="ชื่อปาร์ตี้"
       />
       <br />
       <Field
         component={TextField}
-        type="password"
-        label="ยืนยันรหัสผ่าน"
-        name="confirmPassword"
+        name="capacity"
+        type="number"
+        min="1"
+        label="จำนวนคนที่ขาด"
       />
       <br />
-      <Field
-        type="checkbox"
-        component={CheckboxWithLabel}
-        name="accept"
-        Label={{ label: 'ฉันยอมรับเงื่อนไขและอตกลงเกี่ยวกับการใช้งาน' }}
-      />
-      {errors.accept ? (
-        <FormHelperText error>{errors.accept.toString()}</FormHelperText>
-      ) : null}
-
-      {isSubmitting && <LinearProgress />}
+      <Field component={TextField} name="imgUrl" type="text" label="Url รูป" />
+      <br />
 
       <div style={{ margin: '20px 0' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={isSubmitting}
-          onClick={submitForm}
-        >
-          ยืนยัน
+        <Button variant="contained" color="primary" onClick={submitForm}>
+          สร้างปาร์ตี้
         </Button>
       </div>
     </Form>

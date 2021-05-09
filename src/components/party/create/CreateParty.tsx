@@ -1,6 +1,6 @@
 // import { RouteComponentProps } from 'react-router';
+import { usePartyContext } from '../../../context/party/PartyProvider';
 import PartyForm from './PartyForm';
-import { useRegisterContext } from '../../../context/register/RegisterProvider';
 import { useAppContext } from '../../../context/AppProvider';
 import { useEffect } from 'react';
 import { SET_APP_BAR_NAME } from '../../../context/action-types';
@@ -11,43 +11,30 @@ import * as yup from 'yup';
 import { RouteComponentProps } from 'react-router';
 
 interface MyFormValues {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  accept: boolean;
+  name: string;
+  capacity: number;
+  imgUrl: string;
 }
 
-interface IErrors {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  accept: string;
-}
-export interface IRegisterFormProps {
-  isSubmitting: boolean;
+export interface IPartyFormProps {
+  // isSubmitting: boolean;
   submitForm: () => void;
   values: MyFormValues;
-  errors: IErrors;
 }
 
 const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: yup.string().required('Password is required'),
-  confirmPassword: yup.string().required('Confirm password is required'),
-  accept: yup.boolean().oneOf([true], 'Accept is required'),
+  name: yup.string().required('Name is required'),
+  capacity: yup.number().required('Capacity is required').positive().integer(),
+  imgUrl: yup.string(),
 });
 const CreateParty = (props: RouteComponentProps<any>) => {
   const { dispatch: appDispatch } = useAppContext();
 
-  const { register } = useRegisterContext();
+  const { createParty } = usePartyContext();
   const initialValues: MyFormValues = {
-    email: '',
-    password: '',
-    confirmPassword: '',
-    accept: false,
+    name: '',
+    capacity: 1,
+    imgUrl: '',
   };
 
   useEffect(() => {
@@ -64,19 +51,18 @@ const CreateParty = (props: RouteComponentProps<any>) => {
         validationSchema={validationSchema}
         onSubmit={async (values) => {
           try {
-            await register(values);
+            await createParty(values);
             props.history.push('/');
           } catch (error) {
             console.log(error);
           }
         }}
       >
-        {({ submitForm, isSubmitting, values, errors }: IRegisterFormProps) => (
+        {({ submitForm, values }: IPartyFormProps) => (
           <PartyForm
             submitForm={submitForm}
-            isSubmitting={isSubmitting}
+            // isSubmitting={isSubmitting}
             values={values}
-            errors={errors}
           />
         )}
       </Formik>
