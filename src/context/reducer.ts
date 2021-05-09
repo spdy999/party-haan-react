@@ -18,6 +18,7 @@ const appReducer = (state: IAppState, action: IAppAction): IAppState => {
       return {
         ...state,
         appBarTitle: action.payload.appBarTitle,
+        lastPage: action.payload.lastPage,
       };
     default:
       return state;

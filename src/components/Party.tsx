@@ -10,12 +10,12 @@ import { useEffect } from 'react';
 import { SET_APP_BAR_NAME } from '../context/action-types';
 
 export default function Party(props: RouteComponentProps<any>) {
-  const { state: appState, dispatch: appDispatch } = useAppContext();
+  const { dispatch: appDispatch } = useAppContext();
   const { state: partyState } = usePartyContext();
   useEffect(() => {
     appDispatch({
       type: SET_APP_BAR_NAME,
-      payload: { appBarTitle: 'ปาร์ตี้ทั้งหมด' },
+      payload: { appBarTitle: 'ปาร์ตี้ทั้งหมด', lastPage: '' },
     });
   }, [appDispatch]);
 

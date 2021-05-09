@@ -1,13 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 import { useAppContext } from '../context/AppProvider';
+import { ArrowBackIos } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,19 +21,23 @@ const useStyles = makeStyles((theme: Theme) =>
 const CustomAppBar = () => {
   const classes = useStyles();
   const { state } = useAppContext();
-  const { appBarTitle } = state;
+  const { appBarTitle, lastPage } = state;
+  const history = useHistory();
 
   return (
     <AppBar position="static">
       <Toolbar>
-        {/* <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton> */}
+        {lastPage !== '' && (
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={() => history.push(lastPage)}
+          >
+            <ArrowBackIos />
+          </IconButton>
+        )}
         <Typography variant="h6" className={classes.title}>
           {appBarTitle}
         </Typography>

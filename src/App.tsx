@@ -18,8 +18,8 @@ const App = () => {
         <RegisterContextWrapper>
           <LoginContextWrapper>
             <PartyContextWrapper>
-              <CustomAppBar />
               <BrowserRouter>
+                <CustomAppBar />
                 <Switch>
                   <Route
                     path="/"
@@ -28,7 +28,7 @@ const App = () => {
                   />
                   <Route
                     path="/parties/create"
-                    render={(props) => <CreateParty {...props} />}
+                    render={() => <CreateParty />}
                   />
                   <Route
                     path="/login"
