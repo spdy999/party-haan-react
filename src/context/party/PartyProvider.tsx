@@ -9,9 +9,16 @@ interface IJoinPartyPayload {
   partyId: number;
 }
 
+interface ICreatePartyPayload {
+  capacity: number;
+  imgUrl?: string;
+  name: string;
+}
+
 interface IContextProps {
   state: IPartyState;
   joinParty: (payload: IJoinPartyPayload) => Promise<void>;
+  createParty: (payload: ICreatePartyPayload) => Promise<void>;
 }
 
 const PartyContext = createContext({} as IContextProps);
@@ -23,15 +30,27 @@ export function PartyContextWrapper({ children }: { children: any }) {
     const { data }: { data: IParty[] } = await axios.get('/parties');
     dispatch({ type: SET_PARTIES, payload: data });
   };
+
   const accessToken = localStorage.getItem('access_token') || '';
+
   const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   };
+
   const joinParty = async (payload: IJoinPartyPayload): Promise<void> => {
     try {
       await axios.post('/parties/join', payload, config);
+      await getParties();
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const createParty = async (payload: ICreatePartyPayload): Promise<void> => {
+    try {
+      await axios.post('/parties', payload);
       await getParties();
     } catch (error) {
       alert(error);
@@ -43,7 +62,7 @@ export function PartyContextWrapper({ children }: { children: any }) {
   }, []);
 
   return (
-    <PartyContext.Provider value={{ state, joinParty }}>
+    <PartyContext.Provider value={{ state, joinParty, createParty }}>
       {children}
     </PartyContext.Provider>
   );

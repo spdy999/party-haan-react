@@ -16,7 +16,11 @@ export default function Party() {
         alignItems="center"
       >
         <Typography variant="h6">ปาร์ตี้ทั้งหมด</Typography>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            alert('click!');
+          }}
+        >
           <Add />
         </IconButton>
       </Box>
