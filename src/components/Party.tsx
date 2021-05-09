@@ -35,18 +35,27 @@ export default function Party(props: RouteComponentProps<any>) {
           <Add />
         </IconButton>
       </Box>
-      {partyState.parties.map((party: IParty) => {
-        const userJoined = party.partiesUsers.find(
-          (pu: IPartyUser) => pu.userId === userId,
-        );
-        return (
-          <PartyCard
-            key={party.id}
-            party={party}
-            userJoined={userJoined ? true : false}
-          />
-        );
-      })}
+
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        flexWrap="wrap"
+      >
+        {partyState.parties.map((party: IParty) => {
+          const userJoined = party.partiesUsers.find(
+            (pu: IPartyUser) => pu.userId === userId,
+          );
+          return (
+            <PartyCard
+              key={party.id}
+              party={party}
+              userJoined={userJoined ? true : false}
+            />
+          );
+        })}
+      </Box>
     </Container>
   );
 }

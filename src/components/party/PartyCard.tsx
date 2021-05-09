@@ -13,6 +13,8 @@ import { usePartyContext } from '../../context/party/PartyProvider';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    minWidth: 140,
+    margin: 5,
   },
   media: {
     height: 140,
