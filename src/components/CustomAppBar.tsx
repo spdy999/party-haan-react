@@ -31,18 +31,18 @@ const CustomAppBar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
+        {/* <IconButton
           edge="start"
           className={classes.menuButton}
           color="inherit"
           aria-label="menu"
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography variant="h6" className={classes.title}>
           {appBarTitle}
         </Typography>
-        <Button color="inherit">Login</Button>
+        {/* <Button color="inherit">Login</Button> */}
       </Toolbar>
     </AppBar>
   );
