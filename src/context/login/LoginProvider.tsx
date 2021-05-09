@@ -30,7 +30,7 @@ export function LoginContextWrapper({ children }: { children: any }) {
       '/auth/login',
       payload,
     );
-
+    localStorage.setItem('access_token', data.access_token);
     dispatch({ type: SET_LOGIN, payload: data });
   };
 

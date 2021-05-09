@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { IParty } from '../../context/party/state';
+import { usePartyContext } from '../../context/party/PartyProvider';
 
 const useStyles = makeStyles({
   root: {
@@ -15,37 +17,48 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 });
-interface IPartyCardProps {
-  imgUrl: string;
-}
-const PartyCard = (props: IPartyCardProps) => {
-  const classes = useStyles();
 
+interface IPartyCardProps {
+  key: any;
+  party: IParty;
+}
+
+const PartyCard = (props: IPartyCardProps) => {
+  const { joinParty } = usePartyContext();
+  const classes = useStyles();
+  const { party } = props;
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={props.imgUrl}
-          title="Contemplative Reptile"
+          image={party.imgUrl}
+          title={party.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {party.name}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
+      <CardActions className={classes.actions}>
+        <Button size="small" disabled>
+          {party.partiesUsers.length}/{party.capacity}
         </Button>
-        <Button size="small" color="primary">
-          Learn More
+        <Button
+          size="small"
+          color="primary"
+          disabled={party.partiesUsers.length >= party.capacity}
+          onClick={async () => {
+            await joinParty({ partyId: party.id });
+          }}
+        >
+          Join
         </Button>
       </CardActions>
     </Card>
